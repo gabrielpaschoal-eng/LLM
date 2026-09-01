@@ -73,7 +73,7 @@ Configure no `.env`:
 ```
 CLAUDE_MODEL=claude-sonnet-5
 CLAUDE_EFFORT=medium
-INSURANCE_PDF_PATHS=documentos/GTB_standard_Nov23.pdf,documentos/GTB_gold_Nov23.pdf,documentos/GTB_platinum_Nov23.pdf
+INSURANCE_PDF_PATHS=documents/GTB_standard_Nov23.pdf,documents/GTB_gold_Nov23.pdf,documents/GTB_platinum_Nov23.pdf
 ```
 
 `INSURANCE_PDF_PATHS` é opcional — usa por padrão os três PDFs de exemplo
@@ -82,7 +82,7 @@ acima.
 ## Rodando a API
 
 Na raiz do repositório (para que os caminhos do `.env` e dos
-`documentos/*.pdf` sejam resolvidos corretamente):
+`documents/*.pdf` sejam resolvidos corretamente):
 
 ```
 uvicorn app.api.main:app --reload --port 8000 --workers 1

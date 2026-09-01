@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 import os
 
 _DEFAULT_INSURANCE_PDF_PATHS = [
-    "documentos/GTB_standard_Nov23.pdf",
-    "documentos/GTB_gold_Nov23.pdf",
-    "documentos/GTB_platinum_Nov23.pdf",
+    "documents/GTB_standard_Nov23.pdf",
+    "documents/GTB_gold_Nov23.pdf",
+    "documents/GTB_platinum_Nov23.pdf",
 ]
 
 
