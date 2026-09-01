@@ -7,7 +7,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from app.domain.travel import AdvisorState, Route
-from app.infrastructure.claude_chat_model import ClaudeSDKChatModel
+from app.infrastructure.ai.claude_chat_model import ClaudeSDKChatModel
 
 _beach_advisor_prompt = ChatPromptTemplate.from_messages(
     [

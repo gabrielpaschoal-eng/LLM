@@ -135,8 +135,11 @@ flowchart TD
 
     subgraph infra["app/infrastructure"]
         API["api/ — routers FastAPI"]
-        SDK["claude_chat_model.py<br/>adaptador Claude Agent SDK"]
-        VEC["vector_store.py<br/>FAISS + embeddings"]
+        subgraph ai["ai/"]
+            SDK["claude_chat_model.py<br/>adaptador Claude Agent SDK"]
+            VEC["vector_store.py<br/>FAISS + embeddings"]
+        end
+        CFG["config/settings.py<br/>variáveis de ambiente"]
     end
 
     subgraph application["app/application"]
@@ -150,10 +153,12 @@ flowchart TD
     CLI["Claude Code CLI local<br/>(claude_agent_sdk)"]
 
     API --> UC1 & UC2 & UC3 & UC4
+    API --> CFG
     UC1 & UC3 --> DOM
     UC1 & UC2 & UC3 --> SDK
     UC4 --> SDK
     UC4 --> VEC
+    SDK --> CFG
     SDK --> CLI
 ```
 
@@ -164,13 +169,15 @@ flowchart TD
   `insurance_query.py`), cada um montando os prompts e a cadeia daquele
   fluxo.
 - `app/infrastructure/` — os detalhes técnicos que poderiam ser trocados sem
-  mexer no resto: o adaptador do Claude Agent SDK (`claude_chat_model.py`), a
-  busca vetorial em PDFs (`vector_store.py`) e a interface REST
-  (`api/`) — app FastAPI, rotas, schemas de request/response e a montagem
-  das dependências. Nenhum desses detalhes contém regra de negócio, só
-  conecta os casos de uso acima a um mecanismo concreto (SDK do Claude,
-  FAISS, HTTP).
-- `app/config.py` — leitura das variáveis de ambiente (`.env`).
+  mexer no resto, separados por responsabilidade:
+  - `ai/` — o adaptador do Claude Agent SDK (`claude_chat_model.py`) e a
+    busca vetorial em PDFs (`vector_store.py`).
+  - `config/` — leitura das variáveis de ambiente (`settings.py`).
+  - `api/` — a interface REST: app FastAPI, rotas, schemas de
+    request/response e a montagem das dependências.
+
+  Nenhum desses detalhes contém regra de negócio, só conecta os casos de uso
+  acima a um mecanismo concreto (SDK do Claude, FAISS, `.env`, HTTP).
 
 Essa separação segue boas práticas de Clean Code: cada arquivo tem uma
 responsabilidade só, sem duplicar a leitura do `.env` ou a criação do

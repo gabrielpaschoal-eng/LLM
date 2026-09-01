@@ -11,8 +11,8 @@ from app.application.insurance_query import create_insurance_query
 from app.application.travel_advisor import create_advisor_graph
 from app.application.travel_chat import create_chat_with_memory
 from app.application.trip_suggestion import create_trip_suggestion_chain
-from app.config import load_settings
-from app.infrastructure.claude_chat_model import create_model
+from app.infrastructure.config.settings import load_settings
+from app.infrastructure.ai.claude_chat_model import create_model
 
 
 @asynccontextmanager

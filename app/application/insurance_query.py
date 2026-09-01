@@ -3,8 +3,8 @@ from typing import Awaitable, Callable, List
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from app.infrastructure.claude_chat_model import ClaudeSDKChatModel
-from app.infrastructure.vector_store import create_pdf_retriever
+from app.infrastructure.ai.claude_chat_model import ClaudeSDKChatModel
+from app.infrastructure.ai.vector_store import create_pdf_retriever
 
 _insurance_query_prompt = ChatPromptTemplate.from_messages(
     [

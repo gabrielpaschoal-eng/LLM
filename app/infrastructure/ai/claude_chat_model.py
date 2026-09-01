@@ -9,7 +9,7 @@ from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.runnables import RunnableLambda
 from pydantic import BaseModel
 
-from app.config import Settings
+from app.infrastructure.config.settings import Settings
 
 
 def _messages_to_prompt(messages: List[BaseMessage]) -> tuple[Optional[str], str]:

@@ -4,7 +4,7 @@ from fastapi import Request
 from langchain_core.runnables import Runnable
 from langgraph.graph.state import CompiledStateGraph
 
-from app.config import Settings
+from app.infrastructure.config.settings import Settings
 
 
 def get_settings(request: Request) -> Settings:

@@ -3,7 +3,7 @@ from langchain_core.output_parsers import JsonOutputParser, StrOutputParser
 from langchain_core.runnables import Runnable, RunnablePassthrough
 
 from app.domain.travel import Destination, Restaurants
-from app.infrastructure.claude_chat_model import ClaudeSDKChatModel
+from app.infrastructure.ai.claude_chat_model import ClaudeSDKChatModel
 
 _destination_parser = JsonOutputParser(pydantic_object=Destination)
 _restaurants_parser = JsonOutputParser(pydantic_object=Restaurants)

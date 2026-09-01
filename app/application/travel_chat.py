@@ -6,7 +6,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import Runnable
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-from app.infrastructure.claude_chat_model import ClaudeSDKChatModel
+from app.infrastructure.ai.claude_chat_model import ClaudeSDKChatModel
 
 _suggestion_prompt = ChatPromptTemplate.from_messages(
     [
