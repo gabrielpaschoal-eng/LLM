@@ -2,8 +2,8 @@ from typing import Awaitable, Callable
 
 from fastapi import APIRouter, Depends
 
-from app.api.dependencies import get_insurance_answer
-from app.api.schemas.insurance import InsuranceQueryRequest, InsuranceQueryResponse
+from app.infrastructure.api.dependencies import get_insurance_answer
+from app.infrastructure.api.schemas.insurance import InsuranceQueryRequest, InsuranceQueryResponse
 
 router = APIRouter(tags=["insurance-queries"])
 

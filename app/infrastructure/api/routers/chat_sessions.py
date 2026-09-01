@@ -5,8 +5,8 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.runnables import Runnable
 
-from app.api.dependencies import get_chat_chain, get_known_chat_sessions
-from app.api.schemas.chat import (
+from app.infrastructure.api.dependencies import get_chat_chain, get_known_chat_sessions
+from app.infrastructure.api.schemas.chat import (
     ChatHistoryMessage,
     ChatMessageRequest,
     ChatMessageResponse,

@@ -10,3 +10,5 @@ langchain-community==0.3.25
 langchain-huggingface
 sentence-transformers
 pypdf==5.6.0
+pytest
+httpx

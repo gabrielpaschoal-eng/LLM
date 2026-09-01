@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from langgraph.graph.state import CompiledStateGraph
 
-from app.api.dependencies import get_advisor_graph
-from app.api.schemas.travel_advice import TravelAdviceRequest, TravelAdviceResponse
+from app.infrastructure.api.dependencies import get_advisor_graph
+from app.infrastructure.api.schemas.travel_advice import TravelAdviceRequest, TravelAdviceResponse
 
 router = APIRouter(tags=["travel-advice"])
 

@@ -6,7 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app.api.routers import chat_sessions, health, insurance_queries, trip_suggestions, travel_advice
+from app.infrastructure.api.routers import chat_sessions, health, insurance_queries, trip_suggestions, travel_advice
 from app.application.insurance_query import create_insurance_query
 from app.application.travel_advisor import create_advisor_graph
 from app.application.travel_chat import create_chat_with_memory

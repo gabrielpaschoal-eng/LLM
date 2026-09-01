@@ -85,7 +85,7 @@ Na raiz do repositório (para que os caminhos do `.env` e dos
 `documents/*.pdf` sejam resolvidos corretamente):
 
 ```
-uvicorn app.api.main:app --reload --port 8000 --workers 1
+uvicorn app.infrastructure.api.main:app --reload --port 8000 --workers 1
 ```
 
 Documentação interativa (Swagger UI): `http://127.0.0.1:8000/docs`.
@@ -106,6 +106,24 @@ sessões criadas em um worker não apareçam em outro, ou sejam perdidas.
 | POST | `/insurance-queries` | RAG: responde uma pergunta com base nos PDFs de seguro de cartão de crédito |
 | GET | `/health` | Health check |
 
+## Testes
+
+```
+pytest
+```
+
+Os testes usam um `FakeChatModel` (`tests/fakes.py`) no lugar do
+`ClaudeSDKChatModel` real, então rodam rápido e sem chamar o Claude Code —
+seguros para CI. Cobrem:
+
+- **Unitários** por caso de uso (`test_trip_suggestion.py`,
+  `test_travel_chat.py`, `test_travel_advisor.py`, `test_insurance_query.py`):
+  chamam direto as funções de `app/application/`.
+- **E2E** (`test_api_e2e.py`): sobem a aplicação FastAPI de verdade (com o
+  `lifespan` real) via `TestClient`, com o `FakeChatModel` injetado no lugar
+  do modelo real, e batem nos endpoints HTTP como um cliente faria — cobrindo
+  roteamento, validação, injeção de dependência e os exception handlers.
+
 ## Arquitetura do código
 
 O código fica organizado em camadas dentro de `app/`, inspiradas em Clean
@@ -118,13 +136,13 @@ Architecture / DDD — cada camada só conhece a de baixo, nunca o contrário:
   `insurance_query.py`), cada um montando os prompts e a cadeia daquele
   fluxo.
 - `app/infrastructure/` — os detalhes técnicos que poderiam ser trocados sem
-  mexer no resto: o adaptador do Claude Agent SDK (`claude_chat_model.py`) e
-  a busca vetorial em PDFs (`vector_store.py`).
+  mexer no resto: o adaptador do Claude Agent SDK (`claude_chat_model.py`), a
+  busca vetorial em PDFs (`vector_store.py`) e a interface REST
+  (`api/`) — app FastAPI, rotas, schemas de request/response e a montagem
+  das dependências. Nenhum desses detalhes contém regra de negócio, só
+  conecta os casos de uso acima a um mecanismo concreto (SDK do Claude,
+  FAISS, HTTP).
 - `app/config.py` — leitura das variáveis de ambiente (`.env`).
-- `app/api/` — a interface REST: app FastAPI, rotas, schemas de
-  request/response e a montagem das dependências. É a única camada que
-  conhece HTTP; ela só conecta os casos de uso acima e nunca contém regra de
-  negócio.
 
 Essa separação segue boas práticas de Clean Code: cada arquivo tem uma
 responsabilidade só, sem duplicar a leitura do `.env` ou a criação do
