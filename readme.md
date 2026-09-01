@@ -129,6 +129,34 @@ seguros para CI. Cobrem:
 O código fica organizado em camadas dentro de `app/`, inspiradas em Clean
 Architecture / DDD — cada camada só conhece a de baixo, nunca o contrário:
 
+```mermaid
+flowchart TD
+    Client["Cliente HTTP"] --> API
+
+    subgraph infra["app/infrastructure"]
+        API["api/ — routers FastAPI"]
+        SDK["claude_chat_model.py<br/>adaptador Claude Agent SDK"]
+        VEC["vector_store.py<br/>FAISS + embeddings"]
+    end
+
+    subgraph application["app/application"]
+        UC1["trip_suggestion.py"]
+        UC2["travel_chat.py"]
+        UC3["travel_advisor.py"]
+        UC4["insurance_query.py"]
+    end
+
+    DOM["app/domain/travel.py<br/>Destination, Route, AdvisorState"]
+    CLI["Claude Code CLI local<br/>(claude_agent_sdk)"]
+
+    API --> UC1 & UC2 & UC3 & UC4
+    UC1 & UC3 --> DOM
+    UC1 & UC2 & UC3 --> SDK
+    UC4 --> SDK
+    UC4 --> VEC
+    SDK --> CLI
+```
+
 - `app/domain/` — os conceitos de negócio, sem depender de LangChain nem de
   IA nenhuma: o que é um `Destination`, uma `Route`, etc. (`travel.py`).
 - `app/application/` — os casos de uso, um arquivo por recurso
