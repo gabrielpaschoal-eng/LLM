@@ -1,7 +1,12 @@
 claude-agent-sdk==0.2.149
+anyio
+fastapi
+uvicorn[standard]
 langchain==0.3.25
 langgraph==0.4.8
 python-dotenv==1.1.0
 faiss-cpu==1.11.0
 langchain-community==0.3.25
+langchain-huggingface
+sentence-transformers
 pypdf==5.6.0
